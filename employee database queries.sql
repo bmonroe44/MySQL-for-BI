@@ -66,3 +66,13 @@ SELECT * FROM employees ORDER BY hire_date DESC;
 
 SELECT salary, COUNT(emp_no) AS emps_with_same_salary FROM salaries WHERE salary > 80000 
 	GROUP BY salary ORDER BY salary;
+    
+# Select all employees with an average salary higher than $120,000 annually
+SELECT emp_no, AVG(salary) FROM salaries GROUP BY emp_no HAVING AVG(salary) > 120000 ORDER BY emp_no;
+
+# Select employee numbers of all individuals who have signed more than one contract after 2000-01-01
+SELECT emp_no FROM dept_emp WHERE from_date > '2000-01-01' GROUP BY emp_no
+	HAVING COUNT(from_date) > 1 ORDER BY emp_no;
+    
+# Select first 100 rows from dept_emp table
+SELECT * FROM dept_emp LIMIT 100;
