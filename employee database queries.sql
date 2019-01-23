@@ -1,4 +1,4 @@
-#Using employees DB
+#Use employees DB
 USE employees;
 
 # Select all employees with the first name 'Elvis'
