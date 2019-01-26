@@ -98,3 +98,41 @@ SELECT * FROM dept_emp ORDER BY emp_no DESC LIMIT 10;
 INSERT INTO departments (dept_no, dept_name) VALUES ('d010', 'Business Analysis');
 # Verify
 SELECT * FROM departments;
+
+# Change 'Business Analysis' to 'Data Analysis' in the departments table
+UPDATE departments SET dept_name = 'Data Analysis' WHERE dept_no = 'd010';
+# Verify 
+SELECT * FROM departments WHERE dept_no='d010';
+
+# Remove record for department 10 from departments table
+DELETE FROM departments WHERE dept_no='d010'; 
+# Verify
+SELECT * FROM departments WHERE dept_no='d010';
+
+# Count the number of departments in employees database
+SELECT COUNT(DISTINCT dept_no) AS mumber_of_departments FROM dept_emp;
+
+# Sum of total salary after January 1st, 1997
+SELECT SUM(salary) FROM salaries WHERE from_date > '1997-01-01';
+
+# Find lowest and highest employee numbers in database
+SELECT MIN(emp_no) FROM employees;
+SELECT MAX(emp_no) FROM employees;
+
+# Average of total salary after January 1st, 1997
+SELECT AVG(salary) FROM salaries WHERE from_date > '1997-01-01';
+
+# Round average salaries after January 1st, 1997 to two decimal palces
+SELECT ROUND(AVG(salary), 2) FROM salaries WHERE from_date > '1997-01-01';
+
+# Duplicate the departments table
+CREATE TABLE departments_dup (dept_no CHAR(4) NOT NULL, dept_name VARCHAR(40) NOT NULL);
+INSERT INTO departments_dup (dept_no, dept_name) SELECT * FROM departments;
+SELECT * FROM departments_dup ORDER BY dept_no;
+
+# Alter departments_dup table to complete COALESCE exercise
+ALTER TABLE departments_dup CHANGE COLUMN dept_name dept_name VARCHAR(40) NULL;
+INSERT INTO departments_dup(dept_no) VALUES ('d010'), ('d011');
+SELECT * FROM departments_dup ORDER BY dept_no ASC;
+ALTER TABLE employees.departments_dup ADD COLUMN dept_manager VARCHAR(255) NULL AFTER dept_name;
+
