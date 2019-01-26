@@ -86,3 +86,15 @@ SELECT * FROM titles LIMIT 10;
 INSERT INTO titles (emp_no, title, from_date)  VALUES (999903, 'Senior Engineer', '1997-10-01');
 # Verify new data was entered
 SELECT * FROM titles ORDER BY emp_no DESC LIMIT 10;
+
+# View dept_emp table
+SELECT * FROM dept_emp;
+# Insert information for employee 999903 into dept_emp table
+INSERT INTO dept_emp VALUES (999903, 'd005', '1997-10-01', '9999-01-01');
+# Verify
+SELECT * FROM dept_emp ORDER BY emp_no DESC LIMIT 10;
+
+# Create and add 'Business Analysis' to the departments table
+INSERT INTO departments (dept_no, dept_name) VALUES ('d010', 'Business Analysis');
+# Verify
+SELECT * FROM departments;
