@@ -76,3 +76,13 @@ SELECT emp_no FROM dept_emp WHERE from_date > '2000-01-01' GROUP BY emp_no
     
 # Select first 100 rows from dept_emp table
 SELECT * FROM dept_emp LIMIT 100;
+
+# Insert new employee to employees table
+INSERT INTO employees VALUES (999903, '1977-09-14', 'Johnathan', 'Creek', 'M', '1999-01-01');
+
+# View titles table
+SELECT * FROM titles LIMIT 10;
+# Insert added employee ibfo into titles table
+INSERT INTO titles (emp_no, title, from_date)  VALUES (999903, 'Senior Engineer', '1997-10-01');
+# Verify new data was entered
+SELECT * FROM titles ORDER BY emp_no DESC LIMIT 10;
