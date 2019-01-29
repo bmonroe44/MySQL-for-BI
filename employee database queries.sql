@@ -200,3 +200,13 @@ SELECT e.emp_no, e.first_name, e.last_name, e.hire_date, t.title, dm.from_date, 
     JOIN titles t ON e.emp_no = t.emp_no 
     WHERE t.title = 'Manager' ORDER BY e.emp_no;
     
+# Extract number of male and female managers in the employees database
+SELECT e.gender, COUNT(dm.emp_no) AS number_of_managers FROM employees e 
+	JOIN dept_manager dm ON e.emp_no = dm.emp_no 
+    GROUP BY gender;
+
+# Extract information using subquery for all department managers who were hired between the January 1, 1990 and January 1, 1995
+SELECT * FROM dept_manager
+	WHERE emp_no IN (SELECT emp_no FROM employees WHERE hire_date BETWEEN '1990-01-01' AND '1995-01-01');
+
+
