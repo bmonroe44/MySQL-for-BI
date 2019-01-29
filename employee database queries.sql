@@ -136,3 +136,40 @@ INSERT INTO departments_dup(dept_no) VALUES ('d010'), ('d011');
 SELECT * FROM departments_dup ORDER BY dept_no ASC;
 ALTER TABLE employees.departments_dup ADD COLUMN dept_manager VARCHAR(255) NULL AFTER dept_name;
 
+SELECT dept_no, dept_name, COALESCE(dept_name, dept_no) AS dept_info FROM departments_dup ORDER BY dept_no ASC;
+SELECT IFNULL(dept_no, 'N/A') AS dept_no, IFNULL(dept_name, 'Department name not provided') AS dept_name, 
+	COALESCE(dept_no, dept_name) AS dept_info FROM departments_dup ORDER BY dept_no ASC;
+    
+# Alter departments_dup table to complete join exercises
+ALTER TABLE departments_dup DROP COLUMN dept_manager;
+ALTER TABLE departments_dup CHANGE COLUMN dept_no dept_no CHAR(4) NULL;
+ALTER TABLE departments_dup CHANGE COLUMN dept_name dept_name VARCHAR(40) NULL;
+INSERT INTO departments_dup(dept_name) VALUES ('Public Relations');
+DELETE FROM departments_dup WHERE dept_no='d002';
+INSERT INTO departments_dup(dept_no) VALUES ('d010'), ('d011');
+SELECT * FROM departments_dup ORDER BY dept_no;
+
+# Create dept_manager_dup table to complete join exercises
+DROP TABLE IF EXISTS dept_manager_dup;
+CREATE TABLE dept_manager_dup (emp_no int(11) NOT NULL, dept_no char(4) NULL, from_date date NOT NULL, to_date date NULL);
+INSERT INTO dept_manager_dup SELECT * FROM dept_manager;
+INSERT INTO dept_manager_dup (emp_no, from_date) 
+	VALUES (999904, '2017-01-01'), (999905, '2017-01-01'), (999906, '2017-01-01'), (999907, '2017-01-01');
+DELETE FROM dept_manager_dup WHERE dept_name = 'd001';
+INSERT INTO departments_dup (dept_name) VALUES ('Public Relations');
+SELECT * FROM dept_manager_dup ORDER BY dept_no;
+
+# Extract list containing information about all managers' employee number, first and last name, department number and hire date
+SELECT e.emp_no, e.first_name, e.last_name, e.hire_date, dm.dept_no FROM employees e
+	INNER JOIN dept_manager dm ON e.emp_no = dm.emp_no;
+ 
+# Insert duplicate rows into dept_manager_dup and departments_dup tables 
+INSERT INTO dept_manager_dup VALUES ('110228', 'd003', '1992-03-21', '9999-01-01');
+INSERT INTO departments_dup VALUES ('d009', 'Customer Service');
+SELECT * FROM dept_manager_dup ORDER BY dept_no ASC;
+SELECT * FROM departments_dup ORDER BY dept_no ASC;
+# Remove duplicate records from tables and add back in initial records
+DELETE FROM dept_manager_dup WHERE emp_no = '110228';
+INSERT INTO dept_manager_dup VALUES ('110228', 'd003', '1992-03-21', '9999-01-01');
+DELETE FROM departments_dup WHERE dept_no = 'd009';
+INSERT INTO departments_dup VALUES ('d009', 'Customer Service');
