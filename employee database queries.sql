@@ -173,3 +173,16 @@ DELETE FROM dept_manager_dup WHERE emp_no = '110228';
 INSERT INTO dept_manager_dup VALUES ('110228', 'd003', '1992-03-21', '9999-01-01');
 DELETE FROM departments_dup WHERE dept_no = 'd009';
 INSERT INTO departments_dup VALUES ('d009', 'Customer Service');
+
+# Join employees and dept_manager table to return subset of all employees whose last name is 'Markovitch'
+SELECT e.emp_no, e.first_name, e.last_name, dm.dept_no, dm.from_date FROM employees e
+	LEFT JOIN dept_manager dm ON e.emp_no = dm.emp_no WHERE e.last_name = 'Markovitch'
+    ORDER BY dm.dept_no DESC, e.emp_no;
+    
+# Use WHERE (old) style join to merge employees and dept_manager tables
+SELECT e.emp_no, e.first_name, e.last_name, dm.dept_no, e.hire_date FROM dept_manager dm, employees e 
+	WHERE dm.emp_no = e.emp_no;
+
+# Select first and last name, hire date and job title of all employees whose first name is 'Margareta', last name 'Markovitch'
+SELECT e.emp_no, e.first_name, e.last_name, e.hire_date, t.title FROM employees e 
+	JOIN titles t ON e.emp_no = t.emp_no WHERE first_name = 'Margareta' AND last_name = 'Markovitch' ORDER BY e.emp_no;
