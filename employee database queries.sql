@@ -186,3 +186,17 @@ SELECT e.emp_no, e.first_name, e.last_name, dm.dept_no, e.hire_date FROM dept_ma
 # Select first and last name, hire date and job title of all employees whose first name is 'Margareta', last name 'Markovitch'
 SELECT e.emp_no, e.first_name, e.last_name, e.hire_date, t.title FROM employees e 
 	JOIN titles t ON e.emp_no = t.emp_no WHERE first_name = 'Margareta' AND last_name = 'Markovitch' ORDER BY e.emp_no;
+    
+# Return list of all possible combinations between managers from dept_manager table and department number 9
+SELECT dm.*, d.* FROM departments d CROSS JOIN dept_manager dm WHERE d.dept_no = 'd009' ORDER BY d.dept_name;
+
+# Return list with first 10 employees with all the departments they can be assigned to
+SELECT e.*, d.* FROM employees e CROSS JOIN departments d WHERE e.emp_no < 10011 ORDER BY e.emp_no, d.dept_name;
+
+# Select all managers first and last nme, hire date, job title, start date and department name
+SELECT e.emp_no, e.first_name, e.last_name, e.hire_date, t.title, dm.from_date, d.dept_name FROM employees e 
+	JOIN dept_manager dm ON e.emp_no = dm.emp_no
+    JOIN departments d ON dm.dept_no = d.dept_no
+    JOIN titles t ON e.emp_no = t.emp_no 
+    WHERE t.title = 'Manager' ORDER BY e.emp_no;
+    
