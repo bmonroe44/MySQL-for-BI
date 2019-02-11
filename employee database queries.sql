@@ -577,7 +577,7 @@ BEGIN
 
 	IF v_curr_salary IS NOT NULL THEN
 		UPDATE salaries 
-		SET 
+		SET before_salaries_insert
 			to_date = SYSDATE()
 		WHERE
 			emp_no = NEW.emp_no and to_date = NEW.to_date;
@@ -596,3 +596,25 @@ SELECT * FROM dept_manager WHERE emp_no = 111534;
 SELECT * FROM salaries WHERE emp_no = 111534;
 
 ROLLBACK;
+
+# Create trigger that checks if the hire date of an employee is higher than the current date
+DROP TRIGGER IF EXISTS trig_hire_date;
+
+DELIMITER $$
+
+CREATE TRIGGER trig_hire_date
+BEFORE INSERT ON employees
+FOR EACH ROW
+BEGIN
+	IF NEW.hire_date > date_format(sysdate(), '%Y-%m-%d') THEN
+		SET NEW.hire_date = date_format(sysdate(), '%Y-%m-%d');
+	END IF;
+END $$
+
+DELIMITER ; 
+
+# Test trig_hire_date
+
+INSERT INTO employees VALUES ('999904', '1970-01-31', 'John', 'Johnson', 'M', '2025-01-01');
+
+SELECT * FROM employees ORDER BY emp_no DESC;
