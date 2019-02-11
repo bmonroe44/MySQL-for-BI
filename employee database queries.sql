@@ -618,3 +618,12 @@ DELIMITER ;
 INSERT INTO employees VALUES ('999904', '1970-01-31', 'John', 'Johnson', 'M', '2025-01-01');
 
 SELECT * FROM employees ORDER BY emp_no DESC;
+
+/* Indexes */
+
+# Create index on hire_date on employees table
+SELECT * FROM employees WHERE hire_date > '2000-01-01';
+CREATE INDEX i_hire_date ON employees(hire_date);
+# Drop i_hire_date index
+ALTER TABLE employees
+DROP INDEX i_hire_date;
