@@ -1,0 +1,19 @@
+gender,dept_name,avg_salary
+M,Marketing,68693.7540
+F,Marketing,67554.2469
+M,Finance,67982.0745
+F,Finance,67420.6947
+M,"Human Resources",60190.3843
+F,"Human Resources",59868.1174
+M,Production,62978.9139
+F,Production,61860.7746
+M,Development,62924.4289
+F,Development,61963.6756
+M,"Quality Management",61990.4138
+F,"Quality Management",60696.8363
+M,Sales,72609.2690
+F,Sales,71277.3089
+M,Research,62900.3114
+F,Research,61795.8586
+M,"Customer Service",62957.6283
+F,"Customer Service",62343.9477
